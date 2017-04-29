@@ -1,0 +1,7 @@
+NumPy
+
+Basic Data Processing with Pandas
+	- Pandas data tool kits, open source
+	- Help to learn Pandas: Stack Overflow; books: Python for Data Analysis( by O'Reilly ), Learning the Pandas library (by Matt Harrison); Planet Python (http://planetpython.org); data Skeptic Podcast (http://dataskeptic.com)
+	- The series is one of the core data structures in pandas.
+	- How pandas' series can be created : can be created from dictionary data, index is automatically assigned to the keys of the dictionary that you provided and not just incrementing integers
