@@ -31,3 +31,7 @@ print num.index
 # another way to create series. separate index creation from the data
 s1 = pd.Series(['Tiger','Bear', 'Moose'], index = ['India','America','Canada'])
 print s1
+
+# only show certain index
+s = pd.Series(sports,index=['Golf','Sumo','Hockey'])
+print "only show certain index\n", s
