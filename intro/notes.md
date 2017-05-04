@@ -53,4 +53,20 @@
 - Use **where** function to overlay that mask on the DataFrame. The where function takes a Boolean mask as a condition, applies it to the DataFrame or series, and returns a new DataFrame or series of the same shape. for example: `only_gold = df.where(df["Gold"] > 0)`
 - can use & | to chain lots conditions in Boolean mask
 
+## Indexing Dataframes
+- The index is essentially a row level label, and we know that rows correspond to axis zero.
+- Indices can either be inferred, or they can be set explicitly: 1. use the dictionary object to create the series; 2. loaded data from the CSV file and specified the header.3. use the **set_index** function. for example: `df.set_index("Gold")`
+	* Set index is a destructive process, it doesn't keep the current index.* If you want to keep the current index, you need to manually create a new column and copy into it values from the index attribute. *
+- df.reset_index()
+
+### multi-level indexing
+- This is similar to composite keys in relational database systems. To create a multi-level index, we simply call set index and give it a list of columns that we're interested in promoting to an index. Pandas will search through these in order, finding the distinct data and forming composite indices. 
+
+##Missing Values
+- couple of caveats and discussion points which we should address:
+	1. the build in loading from delimited files provides control for missing values in a few ways: na_values list;na_filter option to turn off white space filtering (if you need); could treat missing values as values with information
+	2. One of the handy functions that Pandas has for working with missing values is the filling function, fillna.*This function takes a number or parameters, for instance, you could pass in a single value which is called a scalar value to change all of the missing data to one value. METHOD PARAMETER: The two common fill values are ffill and bfill. ffill is for forward filling and it updates an na value for a particular cell with the value from the previous row.* 
+	3. When you use statistical functions on DataFrames, **these functions typically ignore missing values**. For instance if you try and calculate the mean value of a DataFrame, the underlying NumPy function will ignore missing values. This is usually what you want but you should be aware that values are being excluded. 
+
+
 

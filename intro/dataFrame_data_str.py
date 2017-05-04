@@ -51,5 +51,10 @@ print copy_df
 del copy_df['Name']
 print copy_df
 
-df['Location'] = None
+# set index as 'Location', 'Name', then insert new data
+df = df.set_index([df.index,'Name'])
+# original index is "store 1"... just change name to 'Location'
+df.index.names = ['Location','Name']
+df = df.append(pd.Series(data={'Cost':3.00,'Item Purchased': 'Kitty Food'},name=('Store 2', 'Kevyn')))
+
 print df
