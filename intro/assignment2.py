@@ -61,10 +61,13 @@ def answer_four():
 	return df['Points']
 # print answer_four()
 	
-census_df = pd.read_csv('census.csv')
+census = pd.read_csv('census.csv')
 
-census_df = census_df[census_df['SUMLEV'] == 50]
+census_df = census[census['SUMLEV'] == 50]
 census_df = census_df.reset_index()
+
+original_index = census[census['SUMLEV'] == 50]
+
 def answer_five():
 	unique_counties = census_df.groupby('STNAME')['CTYNAME'].count().sort_values(ascending = False)
 	
@@ -106,6 +109,14 @@ def answer_seven():
 	print county_name
 
 
-answer_seven()
+# answer_seven()
 
+def answer_eight():
+	regions = original_index[(original_index["REGION"] == 1) | (original_index["REGION"] == 2)]
+	washingtons = regions[regions['CTYNAME'].str.startswith("Washington")]
+	greater = washingtons[washingtons["POPESTIMATE2015"] > washingtons["POPESTIMATE2014"]]
 
+	return greater[["STNAME", "CTYNAME"]]
+
+outcome = answer_eight()
+print outcome
