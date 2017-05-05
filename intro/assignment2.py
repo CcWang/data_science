@@ -63,4 +63,49 @@ def answer_four():
 	
 census_df = pd.read_csv('census.csv')
 
-print census_df.head()
+census_df = census_df[census_df['SUMLEV'] == 50]
+census_df = census_df.reset_index()
+def answer_five():
+	unique_counties = census_df.groupby('STNAME')['CTYNAME'].count().sort_values(ascending = False)
+	
+	
+	print unique_counties.index[0]
+
+# answer_five()
+
+def answer_five_op2():
+	unique_counties = census_df.groupby('STNAME').count().sort_values(['CTYNAME'], ascending = False)
+
+	return unique_counties.iloc[0].name
+
+def answer_five_op3():
+	unique_counties = census_df.groupby('STNAME').count().COUNTY.argmax()
+
+	return unique_counties
+
+# print answer_five_op3()
+
+def answer_six():
+	top_threes = census_df.groupby('STNAME')['CENSUS2010POP'].nlargest(3)
+
+	states = top_threes.groupby(level= 0).sum()
+
+	print list(states.nlargest(3).index)
+
+# answer_six()
+
+population_estimates =["POPESTIMATE2010","POPESTIMATE2011","POPESTIMATE2012","POPESTIMATE2013","POPESTIMATE2014","POPESTIMATE2015"]
+def answer_seven():
+	max_population = census_df[population_estimates].max(axis = 1)
+	min_population = census_df[population_estimates].min(axis = 1)
+	# county_name = census_df.iloc[(max_population - min_population).argmax()]['CTYNAME']
+	county_name = census_df.iloc[
+		(census_df[population_estimates].max(axis=1) - 
+		census_df[population_estimates].min(axis=1)
+		).argmax()]['CTYNAME']
+	print county_name
+
+
+answer_seven()
+
+
