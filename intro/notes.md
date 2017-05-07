@@ -2,6 +2,9 @@
 
 - numpy.random.randint(low, how=None, size = Noe, dtype='l')
 
+## Pandas practices
+[http://pandas.pydata.org/pandas-docs/stable/10min.html#apply](http://pandas.pydata.org/pandas-docs/stable/10min.html#apply)
+
 ##Basic Data Processing with Pandas
 - Pandas data tool kits, open source
 - Help to learn Pandas: Stack Overflow; books: Python for Data Analysis( by O'Reilly ), Learning the Pandas library (by Matt Harrison); Planet Python (http://planetpython.org); data Skeptic Podcast (http://dataskeptic.com)
