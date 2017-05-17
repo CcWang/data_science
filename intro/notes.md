@@ -71,5 +71,12 @@
 	2. One of the handy functions that Pandas has for working with missing values is the filling function, fillna.*This function takes a number or parameters, for instance, you could pass in a single value which is called a scalar value to change all of the missing data to one value. METHOD PARAMETER: The two common fill values are ffill and bfill. ffill is for forward filling and it updates an na value for a particular cell with the value from the previous row.* 
 	3. When you use statistical functions on DataFrames, **these functions typically ignore missing values**. For instance if you try and calculate the mean value of a DataFrame, the underlying NumPy function will ignore missing values. This is usually what you want but you should be aware that values are being excluded. 
 
+## Advanced Python Pandas
+### Merging Dataframes
+- To add new data
+	* df[**column**] = [a,b,c]
+- To set default data (or overwrite all data):
+	* df[**column**] = 2
+
 
 
