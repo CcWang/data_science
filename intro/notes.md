@@ -77,6 +77,33 @@
 	* df[**column**] = [a,b,c]
 - To set default data (or overwrite all data):
 	* df[**column**] = 2
+- when created DataFrame, can set index to whatever you want
+	* `df = pd.DataFrame([{'Name': 'Chris', 'Item Purchased': 'Sponge', 'Cost': 22.50},
+					{'Name': 'Kevyn', 'Item Purchased': 'Kitty Litter', 'Cost': 2.50},
+					{'Name': 'Filip', 'Item Purchased': 'Spoon', 'Cost': 5.00}],
+					index = ['Store 1', 'Store 1', 'Store 2'])`
+- reset_index() will make index to regular index number (0 - n)
+- 如果有些row你没有给value, pandas会自动放NaN value 进去
+#### merge two DataFrames/join them together
+- Full outer join(union)*want all the information*
+- Inner join (intersection) *only want the intersection information（就是只取交集）*
+- 语法：
+	* use index to join: pd.merge(left_DataFrame_name, right_DataFrame_name, how = 'outer/inner/left/right', left_index = True, right_index = True)
+	* use column name to join: pd.merge(left_DataFrame_name, right_DataFrame_name, how = 'outer/inner/left/right', left_on = column_name/['xxx','bbb'], right_on = column_name/['xxx','bbb']) *多个条件(multi-index/multi-column)，把条件放list里*
+－ 假如有conflicts between the DataFrames: The merge function preserves this information, but appends an _x or _y to help differentiate between which index went with which column of data. The _x is always the left DataFrame information, and the _ y is always the right DataFrame information. And you could control the names of _x and _y with additional parameters if you want to.
 
+### Pandas Idioms
+#### method chaining
+- Chain Indexing:
+	* df.loc['Washtenaw']['Total Population']
+	* Generally **bad**, Pandas could return a copy of a view depending upon numpy
+- Code smell
+	* If you see a ][ you should think carefully about what you are doing 
+－ Method chaining
+	* The general idea behind method chaining is that every method on an object returns a **reference** to that object.
 
+## apply (用的比较多)
+- most use: find max/min value, and returns a new row of data
+- 写一个def，然后apply. Apply takes the function and the axis on which to operate as parameters.  example: `df.apply(def_name, axis = 1)` 
+- axis parameter is really the parameter of the index to use. So, to apply across all rows, you pass axis equal to one.
 
