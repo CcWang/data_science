@@ -107,5 +107,12 @@
 - 写一个def，然后apply. Apply takes the function and the axis on which to operate as parameters.  example: `df.apply(def_name, axis = 1)` 
 - axis parameter is really the parameter of the index to use. So, to apply across all rows, you pass axis equal to one.
 
+<<<<<<< HEAD
+=======
+## Group by
+- group by function: This function takes some column name or names and splits the DataFrame up into chunks based on those names, it returns a DataFrame groupby object. Which can be iterated upon, and then returns a tuple where the first item is the group condition, and the second item is the data frame reduced by that grouping.
+
+## Scales
+>>>>>>> 7afb3c29d06262a223fa245a6445a2fa37adef2a
 
 
