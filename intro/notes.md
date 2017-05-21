@@ -107,3 +107,5 @@
 - 写一个def，然后apply. Apply takes the function and the axis on which to operate as parameters.  example: `df.apply(def_name, axis = 1)` 
 - axis parameter is really the parameter of the index to use. So, to apply across all rows, you pass axis equal to one.
 
+
+
