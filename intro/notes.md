@@ -107,12 +107,68 @@
 - 写一个def，然后apply. Apply takes the function and the axis on which to operate as parameters.  example: `df.apply(def_name, axis = 1)` 
 - axis parameter is really the parameter of the index to use. So, to apply across all rows, you pass axis equal to one.
 
-<<<<<<< HEAD
-=======
 ## Group by
 - group by function: This function takes some column name or names and splits the DataFrame up into chunks based on those names, it returns a DataFrame groupby object. Which can be iterated upon, and then returns a tuple where the first item is the group condition, and the second item is the data frame reduced by that grouping.
 
 ## Scales
->>>>>>> 7afb3c29d06262a223fa245a6445a2fa37adef2a
+### Ratio scale:
+- units are equally spaced
+- mathematical operations of +-/* are all valid. *e.g. height and weight*
+
+### Interval scale:
+- units are equally spaced, but theres no clear absence of value (no true zero)
+- operation such as multiplication and division are not valid. *e.g. the temperatures measured in Celsius or Fahrenheit*
+
+### Ordinal scale (common in machine learning):
+- the order of the units is important, but the differences between the value are not evenly spaced.
+- letter grades such as A+, A are a good example   
+
+### Nominal scale (called categorical data):
+- categories of data, but the categories have no order with respect to one another.
+- E.g. Teams of a sport
+
+Variables with a Boolean value are typically called dummy variables. And pandas has a built-in function called get_dummies, which will convert the values of a single column into multiple columns of 0's and 1's, indicating the presence of a dummy variable. 
+
+## one more function 
+
+reducing a value which is on the interval or ratio scale, like a number grade, into one that is categorical like a letter grade. 
+- Now, this might seem a bit counter intuitive to you since you're losing information about the value. But it's useful on a couple of places. 
+
+	1. First, if you're visualizing the frequencies of categories, and this can be an extremely useful approach and histograms are regularly used with converted interval or ratio data 
+	2. Second, if you're using a machine learning classification approach on data, then you need to be using categorical data. So reducing dimensionality is useful there too.
+	3. Pandas has a function called cut, which takes an argument which is some array like structure of a column or a DataFrame or a series.
+	4. It also takes a number of bins to be used and all bins are kept at equal spacing. 
+	
+##Pivot Tables
+A pivot table is a way of summarizing data in a data frame for a particular purpose. It makes heavy use of the aggregation function. 
+
+- A pivot table is itself a data frame, where the rows represent one variable that you're interested in, the columns another, and the cell's some aggregate value. 
+- A pivot table also tends to includes marginal values as well, which are the sums for each column and row. **This allows you to be able to see the relationship between two variables at just a glance. **
+
+## Date Functionality
+### Timestamp
+`pd.Timestamp('9/1/2016)`
+ Timestamp is interchangeable with Python's datetime in most cases.
+ 
+### Periods
+- Suppose we weren't interested in a specific point in time, and instead wanted a span of time. This is where Period comes into play.
+- Period represents a single time span, such as a specific day or month. 
+
+### DatetimeIndex
+- `t1 = pd.Series(list('abc'), [pd.Timestamp('2016-09-01'), pd.Timestamp('2016-09-02'), pd.Timestamp('2016-09-03')])
+` each timestamp is the index and has a value associated with it, in this case, a, b and c. 
+
+### PeriodIndex
+`t2 = pd.Series(list('def'), [pd.Period('2016-09'), pd.Period('2016-10'), pd.Period('2016-11')])
+`
+type is PeriodIndex
+
+### converting to Datetime
+pandas.to_datetime
+
+###Timedeltas
+time differences
+
+###working with Dates in a Dataframe
 
 
