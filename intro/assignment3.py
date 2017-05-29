@@ -29,24 +29,82 @@ def get_energy():
 	#	"China, Hong Kong Special Administrative Region": "Hong Kong"
 	#	There are also several countries with numbers and/or parenthesis in their name. Be sure to remove these
 	
-	country_rename_map = {"Republic of Korea": "South Korea",
-							"United States of America20": "United States",
-							"United Kingdom of Great Britain and Northern Ireland": "United Kingdom",
-							"China, Hong Kong Special Administrative Region": "Hong Kong"}
-	energy.replace({'Country':country_rename_map}, inplace = True)
-	# remove_num_par = "(?P<{0}>[a-zA-Z\s\-]+)\b?(\(|\d)*"
-	energy['Country'] = energy['Country'].str.replace(r"[\(\)\d]+", "")
+	energy['Country'] = energy['Country'].str.replace(r"\(.*?\)", "")
+	energy['Country'] = energy['Country'].str.replace(r"\d+", "")
+	energy['Country'] = energy['Country'].str.strip()
 
+	country_rename_map = {"Republic of Korea": "South Korea","United States of America": "United States","United Kingdom of Great Britain and Northern Ireland": "United Kingdom","China, Hong Kong Special Administrative Region": "Hong Kong"}
+	energy.replace({'Country':country_rename_map}, inplace = True)
 	return energy
 
 #get GDP
 def get_GDP():
 	
+	# 1 & 2. load the GDP data, call this DataFrame as GDP. skip the header
+		#  only keep year 2006 to 2015 columns
+	columns = (['Country Name'] + [str(year) for year in range(2006, 2016)])
+	GDP = pd.read_csv('world_bank.csv', skiprows = 4, usecols = columns)
+
+
+	# 3. rename the following country name
+		# "Korea, Rep.": "South Korea", 
+		# "Iran, Islamic Rep.": "Iran",
+		# "Hong Kong SAR, China": "Hong Kong"
+
+	country_rename_map = {"Korea, Rep.": "South Korea","Iran, Islamic Rep.": "Iran","Hong Kong SAR, China": "Hong Kong"}	
+	GDP.replace({'Country Name':country_rename_map}, inplace = True)
+
+
+	# 4.change column name "Country Name" to "Country"
+
+	GDP.rename(columns={'Country Name' : 'Country'}, inplace = True)
+
+	# return GDP
+	return GDP
+
+# get ScimEn
+def get_ScimEn():
+	# 1. load file and name as ScimEn
+
+	ScimEn = pd.read_excel('scimagojr-3.xlsx')
+
+	# return ScimEn
+
+	return ScimEn
+
+# answer one
+def answer_one():
+
+	energy = get_energy()
+	GDP = get_GDP()
+	# print GDP.iloc(0)[109]['Country']
+	# print energy.iloc(0)[98]
+	# print energy.iloc(0)[42]
+	# print GDP.iloc(0)[109]['Country'] == energy.iloc(0)[98]['Country']
+
+	# get the top 15 country
+	ScimEn = get_ScimEn()
+	top_15 = ScimEn['Rank'] <= 15
+	ScimEn = ScimEn[top_15]
+
+	# Joine three datasets into a new data set (using country names)
 	
+	dfs = [ScimEn, energy, GDP]
+	df_final = reduce(lambda left, right: pd.merge(left, right, on ='Country'), dfs)
+	df_final = df_final.set_index('Country')
+	print df_final
+answer_one()
 
-get_energy()
+def answer_two():
+    energy = get_energy()
+    GDP = get_GDP()
+    ScimEn = get_ScimEn()
+    
+    union = pd.merge(ScimEn, energy, how = 'outer',left_on = 'Country', right_on='Country')
+    union = pd.merge(union, GDP, how = 'outer',left_on = 'Country', right_on='Country') 
+    intersection = pd.merge(ScimEn, energy, how = 'left', left_on='Country', right_on='Country')
+    intersection = pd.merge(intersection, GDP, how = 'left', left_on='Country', right_on='Country')
 
+    return len(union)-len(intersection)
 
-
-
-# 7.  load the GDP data from the file world_bank.csv, which is a csv containing countries' GDP from 1960 to 2015 from World Bank. Call this DataFrame GDP.
+print (answer_two())
