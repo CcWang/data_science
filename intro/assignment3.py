@@ -92,8 +92,8 @@ def answer_one():
 	dfs = [ScimEn, energy, GDP]
 	df_final = reduce(lambda left, right: pd.merge(left, right, on ='Country'), dfs)
 	df_final = df_final.set_index('Country')
-	print df_final
-answer_one()
+	return df_final
+
 
 def answer_two():
     energy = get_energy()
@@ -108,3 +108,56 @@ def answer_two():
     return len(union)-len(intersection)
 
 print (answer_two())
+
+
+def answer_three():
+	top15 = answer_one()
+	avgGDP = top15[[str(year) for year in range(2006,2015)]].mean(axis = 1)
+	return avgGDP.sort_values(ascending = False)
+
+print answer_three()
+
+def answer_four():
+    Top15 = answer_one()
+    avgGDP = Top15[[str(year) for year in range(2006, 2015)]].mean(axis = 1).sort_values(ascending = False)
+    country_idx= (avgGDP[avgGDP == avgGDP.nlargest(6)[-1]]).index
+    sixth = Top15.loc[country_idx]
+    span =sixth['2015']-sixth['2006'] 
+    return span.values[0]
+print answer_four()
+
+def answer_five():
+	top15 = answer_one()
+	avg = top15['Energy Supply per Capita'].mean()
+	return avg
+print answer_five()
+
+
+def answer_six():
+    Top15 = answer_one()
+    country = Top15["% Renewable"].argmax()
+    amount = Top15.loc[country]["% Renewable"]
+    return (country,amount)
+answer_six()
+
+print answer_six()
+
+def answer_seven():
+    Top15 = answer_one()
+    Top15['self_to_total_citations'] = Top15['Self-citations']/Top15['Citations']
+    country = Top15['self_to_total_citations'].argmax()
+    ratio = Top15.loc[country]['self_to_total_citations']
+    return (country, ratio)
+
+print answer_seven()
+
+def answer_eight():
+    Top15 = answer_one()
+    Top15['population'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
+    third = Top15.population.nlargest(3)[-1]
+    answer = Top15[Top15.population == third].index[0]
+    return answer
+
+print answer_eight()
+
+
