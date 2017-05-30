@@ -171,4 +171,15 @@ time differences
 
 ###working with Dates in a Dataframe
 
+#Statistical Analysis in Python and Project
 
+## Distributions
+- set of all possible random variables
+- Example:
+	* Flipping Coins for heads and tails
+		- a binomial distribution (two possible outcomes)
+		- discrete (categories of heads and tails, no real numbers)
+		- evenly weighted (head are just as likely as tails)
+
+### NumPy actually has some distributions built into it allowing us to make random flips of a coin with given parameters
+	
