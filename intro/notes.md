@@ -182,4 +182,7 @@ time differences
 		- evenly weighted (head are just as likely as tails)
 
 ### NumPy actually has some distributions built into it allowing us to make random flips of a coin with given parameters
+
+### unevenly distributions
+
 	
