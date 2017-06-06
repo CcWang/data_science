@@ -184,5 +184,30 @@ time differences
 ### NumPy actually has some distributions built into it allowing us to make random flips of a coin with given parameters
 
 ### unevenly distributions
+### more distributions
+- Many of the distributions you use in data science are not discrete binomial, and instead are continuous, where the value of the given observation isn't a category like heads or tails, but can be represented as a real number
 
+
+### uniform distribution
+- example: all numbers are equally likely to be drawn, the graph will look like a flat horizontal line 
+- numpy.random.uniform(low, high)
+
+
+### normal distribution/Gaussian Distribution / Bell Curve(揭示了他的图线形状)
+－ This distribution looks like a hump, where the number** which has the highest probability of being drawn is a zero**, and there are two decreasing curves on either side of the X axis.
+－ properties:
 	
+	* the mean is zero
+	* two curves on either side are symmetric
+	* the variance of the distribution can be described in a certain way.  The variance is a measure of how badly values of samples are spread out from the mean.
+- numpy.random.normal(loc=0.0, scale =1.0, size = None)
+	
+
+### Five different characteristics of distributions
+- central tendency, measures we would use for this are **mode, median, mean**
+- variability in the distribution. many ways: standard deviation; interquartile range
+- calculate for standard deviation: distribution = numpy.random.normal(....); numpy.std(distribution)
+- The shape of the tales of the distribution is called **kurtosis**. We can measure the kurtosis using the statistics functions in the SciPy package. A negative value means the curve is slightly more flat than a normal distribution. A positive value means the curve is slightly more peaky than a normal distribution.
+- We can push the peak of the curve of normal distributions. It is called the skew.
+-**Modality**, has more than one peak. Bimodal: has two high points
+

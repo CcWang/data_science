@@ -29,3 +29,11 @@ for j in range(1,len(tornado_events)-1):
 		two_days_in_a_row +=1;
 
 print ('{} tornadoes back to back in {} years'.format(two_days_in_a_row,days/365))
+
+#numpy.random.uniform(low = 0.0, high=1.0, size = None)
+# Draw samples from a uniform distribution.
+
+# Samples are uniformly distributed over the half-open interval [low, high) (includes low, but excludes high). 
+# In other words, any value within the given interval is equally likely to be drawn by uniform. 
+
+print np.random.uniform(0,1)
