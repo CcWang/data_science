@@ -69,8 +69,36 @@ def get_rec_start():
 
 	return data.YearQuarter.iloc[start_i]
 
+# get recession end
+def get_rec_end():
+	# need to find the start first, then find the end
+	data = get_gdp()
+	start = get_rec_start()
+	# chop the data, get all the data after the recession started
+	data= data[data[data.YearQuarter == start].index[0]:]
+	# find the recession end
+	#  recession_index will get the last quarter of the recession, not the end (first quarter out of the recession)
+	#  so need to add 1
+	end_i = recession_index(data, operator.lt) +1
+
+	return data.YearQuarter.iloc[end_i]
+
+# find the recession bottom
+def get_rec_bottom():
+	data = get_gdp()
+	start = get_rec_start()
+	end = get_rec_end()
+	data = data[data[data.YearQuarter == start].index[0]: data[data.YearQuarter == end].index[0]]
+
+	bottom = data.YearQuarter.loc[data[chained_dollars].argmin()]
+
+	return bottom
+
+
+
 university_towns_df = get_list_of_university_towns(university_towns_source)
 # print university_towns_df[university_towns_df.RegionName.str.startswith("Ypsilanti")].State.iloc[0]
 
 print get_rec_start()
-
+print get_rec_end()
+print get_rec_bottom()
