@@ -133,11 +133,117 @@ def cnovert_housing_data_to_quarters():
 	return housing
 
 
-university_towns_df = get_list_of_university_towns(university_towns_source)
 # print university_towns_df[university_towns_df.RegionName.str.startswith("Ypsilanti")].State.iloc[0]
 
 # print get_rec_start()
 # print get_rec_end()
 # print get_rec_bottom()
 
-print cnovert_housing_data_to_quarters().shape
+# print cnovert_housing_data_to_quarters().shape
+# step two test
+class HypothesisTester(object):
+	"""docstring for HypothesisTester"""
+	def __init__(self):
+		self._start = None
+		self._bottom = None
+		self._housing_data = None
+		self._price_ratios = None
+		self._university_towns = None
+		self._university_price_ratios = None
+		self._non_university_price_ratios = None
+		self._p_value = None
+		self._t_statistic = None
+		self._better = None
+		return
+
+	@property
+	def university_data(self):
+		if self._university_data is None:
+			self._university_data = get_list_of_university_towns(university_towns_source)
+		return self._university_data
+
+	@property
+	def start(self):
+		if self._start is None:
+			# I was using the start of the recession but it should actually
+		    # be the quarter before the recession started
+			data = get_gdp()
+			index = recession_index(data) -1
+			self._start = data.YearQuarter.iloc[index]
+		return self._start
+
+	@property
+	def bottom(self):
+		if self._bottom is None:
+			self._bottom = get_rec_end()
+		return self._bottom
+
+	@property
+	def housing_data(self):
+
+		if self._housing_data is None:
+			self._housing_data = cnovert_housing_data_to_quarters()
+		return self._housing_data
+
+	@property
+	def university_towns(self):
+
+		if self._university_towns is None:
+			self._university_towns = get_list_of_university_towns(university_towns_source)
+
+		return self._university_towns
+
+	@property
+	def price_ratios(self):
+		
+		if self._price_ratios is None:
+			# div returns a series
+			self._price_ratios = self.housing_data[self.start].div(self.housing_data[self.bottom])
+			self._price_ratios = pd.DataFrame({"PriceRatio" : self._price_ratios})
+			self._price_ratios.reset_index(inplace = True)
+
+		return self._price_ratios
+
+	@property
+	def university_price_ratios(self):
+		if self._university_price_ratios is None:
+			self._university_price_ratios = pd.merge(self.price_ratios, self.university_towns, how="inner", on = ['State', 'RegionName'])
+			self._university_price_ratios.dropna(inplace = True)
+
+		return self._university_price_ratios
+
+	@property
+	def non_university_price_ratios(self):
+		if self._non_university_price_ratios is None:
+			university_towns = (self.price_ratios.State.isin(self.university_price_ratios.State) & (self.price_ratios.RegionName.isin(self.university_price_ratios.RegionName)))
+			self._non_university_price_ratios = self.price_ratios[~university_towns]
+			self._non_university_price_ratios = self._non_university_price_ratios.dropna()
+		
+		return self._non_university_price_ratios
+
+
+	@property
+	def p_value(self):
+
+		if self._p_value is None:
+			self._t_statistic, self._p_value = ttest_ind(self.university_price_ratios.PriceRatio.values, self.non_university_price_ratios.PriceRatio.values)
+
+		return self._p_value
+
+	@property
+	def better(self):
+		if self._better is None:
+			self._better = ("university town" if self.university_price_ratios.PriceRatio.mean() < self.non_university_price_ratios.PriceRatio.mean() else "non university town")
+		
+		return self._better
+
+
+def run_ttest():
+	tester = HypothesisTester()
+	different = tester.p_value < 0.01
+
+	# return tester.university_price_ratios
+	return (different, tester.p_value, tester.better)
+
+print run_ttest()
+		
