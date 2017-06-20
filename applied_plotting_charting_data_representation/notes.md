@@ -111,4 +111,65 @@ from article: [link](http://www.aosabook.org/en/matplotlib.html)
 ##Basic Plotting with Matplolib
 1. Started by making a graph using the **plot** function;
 2. A plot has two axis: an x-axis, along the horizon, and a y-axis, which runs vertically
-3. 
+3. pyplot.plot(*args, **kwargs) [*args means any number of unnamed arguments; **kwargs means any number of named arguments. give plot function lots of flexible]
+4. pyplot.plot(x, y, "str") [x,y 是坐标， “str”是string, 代表how we want the dot to be rendered.]
+5.  The scripting layer, though, isn't magic, it's just doing some of the behind the scenes work for us. For instance, when we make a call to pyplot's plot.plot, the scripting layer actually looks to see if there's a figure that currently exists and if not, it creates a new one. It then returns the axis for this figure.
+6.  GCF function - get access to the figure using the , which stands for get current figure, of Pi Plot;
+7.  GCA function - get access to current axes. 
+8.  
+
+*create a new figure*
+`plt.figure()
+`
+
+*plot the point (3,2) using the circle marker
+*`plt.plot(3, 2, 'o')`
+
+*get the current axes*
+`ax = plt.gca()`
+
+*Set axis properties [xmin, xmax, ymin, ymax](x轴y轴的左右上下点的值)*
+`ax.axis([0,6,0,10])`
+
+9. *get all the child objects the axes contains*
+`ax.get_children()`
+
+
+##Scatterplots
+1. Matplotlib actually has a number of useful plotting methods in the scripting layer which correspond to different kinds of plots.Scatterplots is one of the major ones.
+2. 记住重要的几点： * pyplot is going to retrieve the current figure with the function gcf and then get the current axis with the function gca. * Pyplot is keeping track of the axis objects for you. But don't forget that they're there and we can get them when we want to get them. * pyplot just mirrors the API of the axis objects. So you can call the plot function against the pyplot module. But this is calling the axis plot functions underneath, so be aware.  *  the function declaration from most of the functions in matplotlib end with an open set of keyword arguments. There are a lot of different properties you can control through these keyword arguments.
+
+### 题外话： zip method
+zip method takes a number of iterables and creates tuples out of them, matching elements based on index
+for example:
+`zip_generator = zip([1,2,3,4,5],[6,7,8,9,10])`
+`print(list(zip_generator))`
+will return : [(1,6),(2,7),(3,8), (4,9),(5,10)]
+
+*The single star * unpacks a collection into positional arguments*
+`print (*zip_generator)`
+will return (1,6)(2,7)(3,8)(4,9)(5,10)
+
+
+If we want to turn the data back into two lists, one with the x component and one with the y component, we can use parameter unpacking with zip. 
+
+`x,y=zip(*zip_generator)`
+那么x会变成［1，2，3，4，5］，y就会变成［6，7，8，9，10］
+
+## Line Plots
+a line plot is created with the plot function. And plots a number of different series of data points. Connecting each series in a point with a line.
+
+1.  First, we only gave y-axes values to our plot call, no x axes values. Instead, the plot function was smart enough to figure out that what we wanted was to **use the index of the series as the x value.** pyplot.plot([list], **)
+2.  the plot identifies different series of data and that the colors of the data from the series are different including the data points and the lines between the data points. 
+3.  We can use the regular axes functions creating labels for the axes and for the figure as a whole.  and we can create a legend.  e.g. 
+4.  plt.xlabel('Some data')
+plt.ylabel('Some other data')
+plt.title('A title')
+plt.legend(['Baseline', 'Competition', 'Us'])
+
+
+
+## fill between function
+`plt.gca().fill_between(range(len(linear_data)),linear_data,exponential_data,facecolor='red',alpha=0.15)`
+
+## Bar Charts
