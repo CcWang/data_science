@@ -173,3 +173,43 @@ plt.legend(['Baseline', 'Competition', 'Us'])
 `plt.gca().fill_between(range(len(linear_data)),linear_data,exponential_data,facecolor='red',alpha=0.15)`
 
 ## Bar Charts
+
+#Charting Fundamentals
+talk about multiple plots with the same figure, interaction, animation and a few more kinds of plots which you might find useful in your data science journey. 
+
+##Subplots
+左右各一个可进行对比
+matplotlib.pyplot.subplot(*args, **kwargs)
+
+-	Typical call signature: `subplot(number_of_rows, number_of_columns, plot_number)`
+-	number_of_rows, number_of_columns,指把这个figure 分成几个row, 几个columns,然后最后一个数字代表此刻这个subplot处在什么位置
+-	subplot index starts at 1 not 0
+-	同一个subplot的位置 可以有几个line
+-	For instance, if we want to to create two plots side by side, we would call subplot with the parameters 1, 2, and 1. This would allow us to use 1 row, with 2 columns, and set the first axis to be the current axis. `plt.figure() plot.subplot(1,2,1)`
+-	to keep the consistency for different subplot, could use sharey = which_subplot to use the same proportion 
+-	成批建立subplot 
+-	建一个3*3的plot， ax1, ax2,ax3 为第一row的三个，以此类推
+-	`fig,((ax1,ax2,ax3),(ax4,ax5,ax6),(ax7,ax8,ax9), sharex = True, sharey = True)`
+
+
+## Histograms
+is a bar chart which shows the frequency of a given phenomena. 
+
+- A great example are probability distributions
+
+- A great example are probability distributions. 
+- **Probability function** can be visualized as a curve, where the y-axis holds the probability a given value would occur, and the x-axis is the value itself. This is called a **probability density function**. The y-axis values are limited to between zero and one, where zero means there's no chance of a given value occurring and one means that the value will always occur. The x-axis values are labeled in terms of the distribution function. In the case of the normal distribution, this is usually in terms of standard deviations. 
+
+### introduce a more flexible GridSpec layout for subplot
+- The GridSpec allows us to map axes over multiple cells in a grid
+-  The GridSpec is indexed as rows and columns using the indexing operator, or square brackets
+-  gridspec([row_postion, column_postion])
+-  For probability density histograms, we care only about the relative values. 
+-  to make axes values aligned, the Matplotlib cannot post the hoc sharing. The only thing we can do is to set the range of the axis to clear things up a little bit more.
+
+##Box Plots
+- sometimes called a box-and-whisker plot is a method of showing aggregate statistics of various samples in a concise matter.
+- 
+
+
+
