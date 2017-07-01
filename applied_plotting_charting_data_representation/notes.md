@@ -209,7 +209,22 @@ is a bar chart which shows the frequency of a given phenomena.
 
 ##Box Plots
 - sometimes called a box-and-whisker plot is a method of showing aggregate statistics of various samples in a concise matter.
-- 
+- The box plot simultaneously shows, for each sample, the median of each value, the minimum and maximum of the samples, and the interquartile range
+- we can use the **pandas described function **to see some summary statistics about our data frame.`df.describe()`
 
+## Heatmaps
+- Heatmaps are a way to visualize three-dimensional data and to take advantage of spatial proximity of those dimensions. 
+- plt.colorbar()
+
+## Animation
+- Maplotlib.animation module contains important helpers for building animations
+- the important object here is to call FunAnimation. It builds an animation by iteratively calling a function which you define. Essentially, your function will either clear the axis object and redraw the next frame, which you want users to see or will return a list of objects which need to be redrawn. 
+- numpy.arange([start, ]stop, [step, ]dtype=None)
+Return evenly spaced values within a given interval.
+- varable = matplotlib.animation.FuncAnimation(figure, function_name, interval_time)
+
+## Interactivity
+- very similar in Matplotlib.Animation
+- have to reference the canvas object of the current figure
 
 
