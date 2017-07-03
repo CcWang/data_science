@@ -226,5 +226,15 @@ Return evenly spaced values within a given interval.
 ## Interactivity
 - very similar in Matplotlib.Animation
 - have to reference the canvas object of the current figure
+- the most event would be  pick event
+
+### pyplot
+import matplotlib.pyplot as plt
+- plt.figure()
+- plt.cla() clears an axis, i.e. the currently active axis in the current figure. It leaves the other axes untouched.
+- plt.clf() clears the entire current figure with all its axes, but leaves the window opened, such that it may be reused for other plots.
+- plt.close() closes a window, which will be the current window, if not specified otherwise.
+- plt.gca() returns the current axes (a matplotlib.axes.Axes instance).
+-  plt.gcf() returns the current figure 
 
 
