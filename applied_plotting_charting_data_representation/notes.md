@@ -238,3 +238,10 @@ import matplotlib.pyplot as plt
 -  plt.gcf() returns the current figure 
 
 
+## Pandas Visualization
+
+#### find out the pre-defined styles provided
+
+	- matplotlib.pyplot.style.available
+	- use the  '...' style :`pt.style.use('style_name')`
+
