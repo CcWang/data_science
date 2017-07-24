@@ -244,4 +244,12 @@ import matplotlib.pyplot as plt
 
 	- matplotlib.pyplot.style.available
 	- use the  '...' style :`pt.style.use('style_name')`
+	
+
+### Seaborn
+- A python visualization library based on matplotlib
+- wraparound matplotlib. It adds styles to make default data visualizations much more visually appealing and makes creation of specific types of complicated plots much simper
+
+
+#### jointplot
 
